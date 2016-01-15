@@ -6,10 +6,18 @@ var admin = require('./admin');
 var users = require('./users');
 var store = require('./store');
 
+/* 应用封装模块请求. */
+var db = require('node-mysql');
+var DB = db.DB;
+var BaseRow = db.Row;
+var BaseTable = db.Table;
+
 /* 用户登录 */
 router.get('/', function (req, res, next) {
 	//将用户名和密码和type写进session，根据type跳转到相应页面
+	req.session.userId = 'huguantao';
 	res.render('index', { title: 'express'});
+
 });
 
 /* 用户退出. */
@@ -42,4 +50,3 @@ router.get('/users/orderDetail', users.orderDetail);
 router.get('/users/orderEvaluation', users.orderEvaluation);
 
 module.exports = router;
-
