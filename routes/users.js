@@ -1,9 +1,22 @@
-var express = require('express');
-var router = express.Router();
+/* 主页：显示我的所有订单. */
+exports.allOrders = function (req, res, next) {
+	//如果麻烦就不要了，需要做分页功能
+}
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+/* 查询订单. */
+exports.searchOrder = function (req, res, next) {
+	//接收：订单号
+}
 
-module.exports = router;
+/* 查看订单详情. */
+exports.orderDetail = function (req, res, next) {
+	//接收：唯一订单号
+}
+
+/* 评价订单和上传订单图片. */
+exports.orderEvaluation = function (req, res, next) {
+
+}
+
+
+
