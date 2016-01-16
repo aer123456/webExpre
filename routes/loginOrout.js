@@ -39,7 +39,10 @@ exports.login = function (req, res, next) {
 		if(err) throw err;
 		if (rows.length !== 0) {
 			usernameExist = 1;
-			if (rows[0].admin_password == password) {
+			console.info(rows[0]);
+			if ((userType == 'admin' && rows[0].admin_password == password) || 
+				(userType == 'user' && rows[0].customer_password == password) ||
+				(userType == 'store' && rows[0].merchant_password == password)){
 				passwordCorrect = 1;
 
 				//用户名和密码存入session，便于后面路由获取。
@@ -56,6 +59,7 @@ exports.login = function (req, res, next) {
 		var return_info = Object();
 		return_info.usernameExist = usernameExist;
 		return_info.passwordCorrect = passwordCorrect;
+		return_info.userType = req.session.userType;
 		res.send(return_info);
 	});
 }

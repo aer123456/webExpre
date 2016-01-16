@@ -1,6 +1,7 @@
 /* 主页：显示我的所有订单. */
 exports.allOrders = function (req, res, next) {
 	//如果麻烦就不要了，需要做分页功能
+	res.render('user/users');
 }
 
 /* 查询订单. */

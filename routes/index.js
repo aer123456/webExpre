@@ -10,10 +10,8 @@ var store = require('./store');
 
 /* 主页登录页面. */
 router.get('/', loginOrout.homepage);
-
 /* 用户登录. */
 router.post('/login', loginOrout.login);
-
 /* 用户退出. */
 router.get('/logout', loginOrout.logout);
 

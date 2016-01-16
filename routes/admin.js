@@ -44,7 +44,6 @@ exports.add = function (req, res, next) {
 
 	}
 
-	//1.check 2.add
 	con.query('select * from ' + table + ' where ' + field[0] + '="' + userId + '";', function(err, rows) {
 		var return_info = Object();
 		return_info.usernameExist = 0;
@@ -179,7 +178,6 @@ exports.stores = function (req, res, next) {
 	// var username = req.session.username;
 	// var password = req.session.password;
 	// if (userType == 'admin') {
-
 	// }	
 	res.render('admin/stores');
 }

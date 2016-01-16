@@ -18,7 +18,6 @@ function getAllStores() {
 	            }
 	        }
     });
-	// $('input').attr('disabled', 'disabled');
 }
 
 //修改商户信息
@@ -71,7 +70,6 @@ function submitInfo(event) {
 	        }
     	);
 	}
-
 }
 
 //新增商家
