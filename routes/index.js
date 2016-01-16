@@ -9,9 +9,9 @@ var store = require('./store');
 /* 应用封装模块请求. */
 var db = require('mysql');
 var con = db.createConnection({
-  host: 'localhost',
+  host: 'localhost:3306',
   user: 'root',
-  password: 'helloworld'
+  password: ''
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -50,6 +50,9 @@ router.post('/login', function (req, res, next) {
 			usernameExist = 1;
 			if (rows[0].admin_password == password) {
 				passwordCorrect = 1;
+				//用户名和密码存入session，便于后面路由获取。
+				req.session.username = username;
+				req.session.password = password;
 			} else {
 				passwordCorrect = 0;
 			}
