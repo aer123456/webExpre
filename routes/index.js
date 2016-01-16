@@ -12,12 +12,17 @@ var DB = db.DB;
 var BaseRow = db.Row;
 var BaseTable = db.Table;
 
-/* 用户登录 */
+/* 主页登录页面. */
 router.get('/', function (req, res, next) {
-	//将用户名和密码和type写进session，根据type跳转到相应页面
-	req.session.userId = 'huguantao';
 	res.render('index', { title: 'express'});
+});
 
+/* 用户登录. */
+router.post('/login', function (req, res, next) {
+	console.info(req.body);
+	var userType = req.body.userType;
+	var username = req.body.username;
+	var password = req.body.password;
 });
 
 /* 用户退出. */
