@@ -9,7 +9,7 @@ var store = require('./store');
 /* 应用封装模块请求. */
 var db = require('mysql');
 var con = db.createConnection({
-  host: 'localhost:3306',
+  host: 'localhost',
   user: 'root',
   password: ''
 });
@@ -22,7 +22,7 @@ var usernameExist, passwordCorrect;
 
 /* 主页登录页面. */
 router.get('/', function (req, res, next) {
-	res.render('index', { title: 'express'});
+	res.render('index');
 });
 
 /* 用户登录. */
@@ -30,6 +30,7 @@ router.post('/login', function (req, res, next) {
 	var userType = req.body.userType;
 	var username = req.body.username;
 	var password = req.body.password;
+
 	var table, id, pw;
 	if (userType == 'admin') {
 		table = 'Admin';
@@ -50,7 +51,9 @@ router.post('/login', function (req, res, next) {
 			usernameExist = 1;
 			if (rows[0].admin_password == password) {
 				passwordCorrect = 1;
+
 				//用户名和密码存入session，便于后面路由获取。
+				req.session.userType = userType;
 				req.session.username = username;
 				req.session.password = password;
 			} else {
@@ -63,13 +66,15 @@ router.post('/login', function (req, res, next) {
 		var return_info = Object();
 		return_info.usernameExist = usernameExist;
 		return_info.passwordCorrect = passwordCorrect;
-		return return_info;
+		res.send(return_info);
 	});
 });
 
 /* 用户退出. */
 router.get('/logout', function (req, res, next) {
 	//清除session，跳到登录页面
+	req.session = null;
+	res.render('index');
 	
 });
 
