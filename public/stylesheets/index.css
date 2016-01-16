@@ -4,17 +4,38 @@ body {
 h2 {
     text-align: center;
     color: #fff;
+    margin: 50px 0 30px 0;
 }
 .login {
     background: #fff;
-    width: 800px;
-    height: 400px;
-    padding-top: 30px;
+    width: 700px;
+    height: 350px;
+    padding: 50px;
     margin: 0 auto;
+    border-radius: 5px;
     text-align: center;
 }
 .login_usertype {
     text-align: center;
+}
+.login_username, .login_passwd {
+    margin-top: 50px;
+}
+.login_usertype span, .login_username span, .login_passwd span {
+    display: inline-block;
+    width: 100px;
+    margin-left: -10px;
+    text-align: right;
+}
+.login_username input, .login_passwd input {
+    display: inline-block;
+    width: 210px;
+    line-height: 25px;
+    text-align: center;
+}
+a {
+    margin-top: 80px;
+    width: 150px;
 }
     
     

@@ -106,9 +106,8 @@ exports.remove = function (req, res, next) {
 /* 主页：商户展示页面. */
 exports.stores = function (req, res, next) {
 	//获取所有商户信息，判断session是否正确
-	var a = req.session.userId;
 	console.info(a);
-	res.render('stores', { stores: 'stores'});
+	res.render('admin/stores', { stores: 'stores'});
 }
 
 /* 用户信息展示页面. */

@@ -2,32 +2,39 @@ extends layout
 
 block content
     h2 欢迎登录电商管理系统，请登录：
-    div.login
-        .login_usertype
-            span 选择登录身份：
-            select
-                option(value="admin") 管理员
-                option(value="user") 用户
-                option(value="store") 商家
-        .login_username
-            span 用户名：
-            input.username(placeholder='请输入用户名') 
-        .login_passwd
-            span 密码：  
-            input.passwd(placeholder='请输入密码')
-        a(href='#' onclick='submitLogin()') 登录
-    img(src="/images/loginicons.png")
-    link(rel="stylesheet", href="/stylesheets/index.css")
+    .container
+        div.login
+            .login_usertype
+                span 选择登录身份：
+                select
+                    option(value="admin") 管理员
+                    option(value="user") 用户
+                    option(value="store") 商家
+            .login_username
+                span 用户名：
+                input.username(placeholder='请输入用户名') 
+            .login_passwd
+                span 密码：  
+                input.passwd(placeholder='请输入密码')
+            a(href='javascript: void(0);' class='btn btn-success' onclick='submitLogin()') 登录
+    link(rel="stylesheet", href="stylesheets/index.css")
     script.
         function submitLogin() {
             var userType = $('select').find("option:selected").val();
             var username = $('.username').val();
             var password = $('.passwd').val();
-            alert(username);
             $.post("/login",
                 { userType: userType,username: username, password: password },
                 function(data){
-                alert("Data Loaded: " + data);
+                    if (data.usernameExist == 0) {
+                        alert('用户明不存在，请重新输入！');
+                    } else if (data.passwordCorrect == 0) {
+                        alert('密码不正确，请重新输入！');
+                    } else if ( data.passwordCorrect == 1) {
+                        window.location.href = '/admin';
+                    } else {
+                        alert('未知的错误发生了，请及时联系相关人员处理。');
+                    }
             });
         }
         function testAdd() {
