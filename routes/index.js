@@ -7,10 +7,18 @@ var users = require('./users');
 var store = require('./store');
 
 /* 应用封装模块请求. */
-var db = require('node-mysql');
-var DB = db.DB;
-var BaseRow = db.Row;
-var BaseTable = db.Table;
+var db = require('mysql');
+var con = db.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'helloworld'
+});
+con.connect();
+var DBName = 'WebDevelopment';
+con.query('use ' + DBName + ';');
+// var DB = db.DB;
+// var BaseRow = db.Row;
+// var BaseTable = db.Table;
 
 /* 主页登录页面. */
 router.get('/', function (req, res, next) {
@@ -23,6 +31,34 @@ router.post('/login', function (req, res, next) {
 	var userType = req.body.userType;
 	var username = req.body.username;
 	var password = req.body.password;
+	var table, id, pw;
+	if (userType == 'admin') {
+		table = 'Admin';
+		id = 'admin_id';
+		pw = 'admin_password';
+	} else if (userType == 'user') {
+		table = 'Customer';
+		id = 'customer_id';
+		pw = 'Customer_password';
+	} else {
+		table = 'Merchant';
+		id = 'merchant_id';
+		pw = 'merchant_password';
+	}
+	console.info(table, id, username);
+	con.query('select * from ' + table + ' where ' + id + '="' + username + '";', function(err, rows) {
+		if(err) throw err;
+		console.log(rows);
+		if (rows) {
+			if (rows[0].admin_password == password) {
+
+			} else {
+
+			}
+		} else {
+			return 
+		}
+	})
 });
 
 /* 用户退出. */

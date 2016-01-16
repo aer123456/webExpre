@@ -1,6 +1,9 @@
 /* 新增一个用户或者商家或者商品. */
 exports.add = function (req, res, next) {
 	//接收：type + 各种相关信息，判断session是否正确
+	var userType = 'admim';
+	var admin = {admin_id:'root',admin_password:'123456'};
+
 }
 
 /* 查询一个用户或者商户或者商品信息. */
