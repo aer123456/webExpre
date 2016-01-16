@@ -37,3 +37,18 @@ block content
                     }
             });
         }
+        function testAdd() {
+            $.post("/admin/add",
+                { },
+                function(data){
+                alert("test add.");
+            });
+        }
+        function testSearch() {
+            $.post("/admin/search",
+                { },
+                function(data){
+                    console.info(data);
+            });
+        }
+
