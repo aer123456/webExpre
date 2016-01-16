@@ -106,7 +106,15 @@ exports.remove = function (req, res, next) {
 /* 主页：商户展示页面. */
 exports.stores = function (req, res, next) {
 	//获取所有商户信息，判断session是否正确
-	console.info(a);
+	// var userType = req.session.userType;
+	// var username = req.session.username;
+	// var password = req.session.password;
+	// if (userType == 'admin') {
+
+	// }
+	con.query('select * from Merchant', function(err, rows) {
+		
+	});
 	res.render('admin/stores', { stores: 'stores'});
 }
 
