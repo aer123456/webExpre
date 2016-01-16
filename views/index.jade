@@ -1,5 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    select
+        option(value="admin") 管理员
+        option(value="user") 用户
+        option(value="store") 商家
+    input.username(placeholder='请输入用户名')  
+    input.passwd(placeholder='请输入密码')
+    a(href='#' onclick='submitLogin()') 登录
+    script.
+        function submitLogin() {
+            var userType = $('select').find("option:selected").val();
+            var username = $('.username').val();
+            var password = $('.passwd').val();
+            alert(username);
+            $.post("/login",
+                { userType: userType,username: username, password: password },
+                function(data){
+                alert("Data Loaded: " + data);
+            });
+        }
+
