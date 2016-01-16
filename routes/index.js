@@ -16,9 +16,6 @@ var con = db.createConnection({
 con.connect();
 var DBName = 'WebDevelopment';
 con.query('use ' + DBName + ';');
-// var DB = db.DB;
-// var BaseRow = db.Row;
-// var BaseTable = db.Table;
 
 /* 定义全局变量，分别表示用户名存在、密码正确与否；1表示存在/正确，0表示错误.  */
 var usernameExist, passwordCorrect;
@@ -30,7 +27,6 @@ router.get('/', function (req, res, next) {
 
 /* 用户登录. */
 router.post('/login', function (req, res, next) {
-	console.info(req.body);
 	var userType = req.body.userType;
 	var username = req.body.username;
 	var password = req.body.password;
@@ -48,20 +44,24 @@ router.post('/login', function (req, res, next) {
 		id = 'merchant_id';
 		pw = 'merchant_password';
 	}
-	console.info(table, id, username);
 	con.query('select * from ' + table + ' where ' + id + '="' + username + '";', function(err, rows) {
 		if(err) throw err;
-		console.log(rows);
-		if (rows) {
+		if (rows.length !== 0) {
+			usernameExist = 1;
 			if (rows[0].admin_password == password) {
-
+				passwordCorrect = 1;
 			} else {
-
+				passwordCorrect = 0;
 			}
 		} else {
-			return 
+			usernameExist = 0;
+			passwordCorrect = 0;
 		}
-	})
+		var return_info = Object();
+		return_info.usernameExist = usernameExist;
+		return_info.passwordCorrect = passwordCorrect;
+		return return_info;
+	});
 });
 
 /* 用户退出. */
