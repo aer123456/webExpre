@@ -17,6 +17,8 @@ block content
                 span 密码：  
                 input.passwd(placeholder='请输入密码')
             a(href='javascript: void(0);' class='btn btn-success' onclick='submitLogin()') 登录
+            a(href='javascript: void(0);' class='btn btn-success' onclick='testUpdate()') update
+            a(href='javascript: void(0);' class='btn btn-success' onclick='testDelete()') delete
     link(rel="stylesheet", href="stylesheets/index.css")
     script.
         function submitLogin() {
@@ -35,6 +37,34 @@ block content
                     } else {
                         alert('未知的错误发生了，请及时联系相关人员处理。');
                     }
+            });
+        }
+        function testAdd() {
+            $.post("/admin/add",
+                { },
+                function(data){
+                alert("test add.");
+            });
+        }
+        function testSearch() {
+            $.post("/admin/search",
+                { },
+                function(data){
+                    console.info(data);
+            });
+        }
+        function testUpdate() {
+            $.post("/admin/change",
+                { },
+                function(data){
+                    console.info(data);
+            });
+        }
+        function testDelete() {
+            $.post("/admin/remove",
+                { },
+                function(data){
+                    console.info(data);
             });
         }
 
