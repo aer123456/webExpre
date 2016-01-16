@@ -12,6 +12,9 @@ var DB = db.DB;
 var BaseRow = db.Row;
 var BaseTable = db.Table;
 
+/* 定义全局变量，分别表示用户名存在、密码正确与否；1表示存在/正确，0表示错误.  */
+var usernameExist, passwordCorrect;
+
 /* 主页登录页面. */
 router.get('/', function (req, res, next) {
 	res.render('index', { title: 'express'});
