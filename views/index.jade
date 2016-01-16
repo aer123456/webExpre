@@ -8,6 +8,11 @@ block content
     input.username(placeholder='请输入用户名')  
     input.passwd(placeholder='请输入密码')
     a(href='#' onclick='submitLogin()') 登录
+
+    //test API
+    a(href='#' onclick='testAdd()') testAdd
+    a(href='#' onclick='testSearch()') testSearch
+
     link(rel="stylesheet", href="/stylesheet/index.styl")
     script.
         function submitLogin() {
@@ -21,4 +26,19 @@ block content
                 alert("Data Loaded: " + data);
             });
         }
+        function testAdd() {
+            $.post("/admin/add",
+                { },
+                function(data){
+                alert("test add.");
+            });
+        }
+        function testSearch() {
+            $.post("/admin/search",
+                { },
+                function(data){
+                    console.info(data);
+            });
+        }
+
 
