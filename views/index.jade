@@ -8,6 +8,7 @@ block content
     input.username(placeholder='请输入用户名')  
     input.passwd(placeholder='请输入密码')
     a(href='#' onclick='submitLogin()') 登录
+    link(rel="stylesheet", href="/stylesheet/index.styl")
     script.
         function submitLogin() {
             var userType = $('select').find("option:selected").val();
