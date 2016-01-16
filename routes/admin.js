@@ -35,7 +35,7 @@ exports.add = function (req, res, next) {
 		field[0] = 'merchant_id';
 		field[1] = 'merchant_password';
 		field[2] = 'merchant_phone';
-		field[3] = 'description';
+		field[3] = 'merchant_description';
 		user.merchant_id = userId;
 		user.merchant_password = userPassword;
 		user.merchant_phone = userPhone;
@@ -70,25 +70,21 @@ exports.add = function (req, res, next) {
 exports.search = function (req, res, next) {
 	//接收：type + ID，判断session是否正确
 	var type = 'user';
-	var id = 'test';
-	var table;
-	var field = [];
+	var sql;
 	if (type == 'user') {
-		table = 'Customer';
-		field[0] = 'customer_id';
+		var id = '1';
+		sql = 'select * from Customer where customer_id = "' + id + '";';
 	} else if (type == 'store') {
-		table = 'Merchant';
-		field[0] = 'merchant_id';
+		var id = '1';
+		sql = 'select * from Merchant where merchant_id = "' + id + '";';
 	} else if (type == 'good') {
-		table = 'Product';
-		field[0] = 'product_id';
+		var id = '1';
+		sql = 'select * from Product where product_id = "' + id + '";';
 	} else {
 
 	}
 
-	con.query('select * from ' + table + ' where ' + field[0] + '="' + id + '";' ,function(err, rows) {
-		var return_info = Object();
-		console.log(rows);
+	con.query(sql, function(err, rows) {
 		res.send(rows);
 	});
 }
@@ -96,30 +92,84 @@ exports.search = function (req, res, next) {
 /* 修改一个用户或者商品的信息. */
 exports.change = function (req, res, next) {
 	//接收： type + 所有相关信息，判断session是否正确
-	var type = 'user';
-	var table;
-	var field = [];
+	var type = 'good';
+	var sql;
 	if (type == 'user') {
-		table = 'Customer';
-		field[0] = 'customer_id';
+		var id = 'test1';
+		var password = '1';
+		var phone = '1';
+		var address = '1';
+		var sql = 'update Customer set customer_password = "' + password + '"'
+			+ ' , customer_phone =  "' + phone + '"'
+			+ ' , customer_address = "' + address + '"'
+			+ ' where customer_id = "' + id + '";';
 	} else if (type == 'store') {
-		table = 'Merchant';
-		field[0] = 'merchant_id';
+		var id = 'test1';
+		var password = '1';
+		var phone = '1';
+		var description = '1';
+		var sql = 'update Merchant set merchant_password = "' + password + '"'
+			+ ' , merchant_phone =  "' + phone + '"'
+			+ ' , merchant_description = "' + description + '"'
+			+ ' where merchant_id = "' + id + '";';
 	} else if (type == 'good') {
-		table = 'Product';
-		field[0] = 'product_id';
+		var id = '1';
+		var merchant_id = 'test7';
+		var price = 11;
+		var description = '1';
+		var image_path = 'img';
+		var sql = 'update Product set merchant_id = "' + merchant_id + '"'
+			+ ' , product_price =  ' + price
+			+ ' , product_description = "' + description + '"'
+			+ ' , image_path = "' + image_path + '"'
+			+ ' where product_id = "' + id + '";';
 	} else {
 
 	}
-	con.query('update ');
+	
+	con.query(sql, function(err, resp) {
+		var return_info = Object();
+		return_info.updateSuccess = 0;
+		if (err) {
+			console.log('0');
+			return_info.updateSuccess = 0;
+			res.send(return_info);
+		} else {
+			console.log('1');
+			return_info.updateSuccess = 1;
+			res.send(return_info);
+		}
+	});
 }
 
 /* 删除一个用户或者商品. */
 exports.remove = function (req, res, next) {
 	//接收： type + ID，判断session是否正确
-	var table;
-	var field = [];
-	con.query('delete');
+	var type = 'user';
+	var sql;
+	if (type == 'user') {
+		var id = '1';
+		sql = 'delete from Customer where customer_id = "' + id + '";';
+	} else if (type == 'store') {
+		var id = '1';
+		sql = 'delete from Merchant where merchant_id = "' + id + '";';
+	} else if (type == 'good') {
+		var id = '1';
+		sql = 'delete from Product where product_id = "' + id + '";';
+	} else {
+
+	}
+	con.query(sql, function(err, resp) {
+		var return_info = Object();
+		return_info.deleteSuccess = 0;
+		if (err) {
+			return_info.deleteSuccess = 0;
+			res.send(return_info);
+		} else {
+			return_info.deleteSuccess = 1;
+			res.send(return_info);
+		}
+	});
 }
 
 /* 主页：商户展示页面. */
