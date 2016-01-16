@@ -2,10 +2,6 @@
 # Install nodejs and express-generator.
 # Enter this project and find package.json, run cnpm install in bash.
 # Run npm start in bash, and type localhost:3000 in your broswer to visit the site.
-<<<<<<< HEAD
-# modify by chen
-# new branch chen
-=======
 
 三个数据表： 商家、用户、管理员（事先生成）、商品表
 
@@ -21,6 +17,3 @@
 	修改用户信息、订单查询
 5: 管理员
 	看、改
-
-
->>>>>>> f646e4f9fdb8d696c7ea435ab11833e73a6211c5
