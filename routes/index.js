@@ -1,88 +1,29 @@
 var express = require('express');
 var router = express.Router();
 
-/* 请求同目录下的三个路由控制模块 *.js，从而集中处理路由，便于维护. */
+/* 请求同目录下的四个路由控制模块 *.js，从而集中处理路由，便于维护. */
+var loginOrout = require('./loginOrout');
 var admin = require('./admin');
 var users = require('./users');
 var store = require('./store');
 
-/* 应用封装模块请求. */
-var db = require('mysql');
-var con = db.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: ''
-});
-con.connect();
-var DBName = 'WebDevelopment';
-con.query('use ' + DBName + ';');
-
-/* 定义全局变量，分别表示用户名存在、密码正确与否；1表示存在/正确，0表示错误.  */
-var usernameExist, passwordCorrect;
 
 /* 主页登录页面. */
-router.get('/', function (req, res, next) {
-	res.render('index');
-});
+router.get('/', loginOrout.homepage);
 
 /* 用户登录. */
-router.post('/login', function (req, res, next) {
-	var userType = req.body.userType;
-	var username = req.body.username;
-	var password = req.body.password;
-
-	var table, id, pw;
-	if (userType == 'admin') {
-		table = 'Admin';
-		id = 'admin_id';
-		pw = 'admin_password';
-	} else if (userType == 'user') {
-		table = 'Customer';
-		id = 'customer_id';
-		pw = 'Customer_password';
-	} else {
-		table = 'Merchant';
-		id = 'merchant_id';
-		pw = 'merchant_password';
-	}
-	con.query('select * from ' + table + ' where ' + id + '="' + username + '";', function(err, rows) {
-		if(err) throw err;
-		if (rows.length !== 0) {
-			usernameExist = 1;
-			if (rows[0].admin_password == password) {
-				passwordCorrect = 1;
-
-				//用户名和密码存入session，便于后面路由获取。
-				req.session.userType = userType;
-				req.session.username = username;
-				req.session.password = password;
-			} else {
-				passwordCorrect = 0;
-			}
-		} else {
-			usernameExist = 0;
-			passwordCorrect = 0;
-		}
-		var return_info = Object();
-		return_info.usernameExist = usernameExist;
-		return_info.passwordCorrect = passwordCorrect;
-		res.send(return_info);
-	});
-});
+router.post('/login', loginOrout.login);
 
 /* 用户退出. */
-router.get('/logout', function (req, res, next) {
-	//清除session，跳到登录页面
-	req.session = null;
-	res.render('index');
-	
-});
+router.get('/logout', loginOrout.logout);
 
 /* 管理员相关路由及控制模块. */
 router.get('/admin', admin.stores);
 router.post('/admin/getAllStores', admin.getAllStores);
 router.get('/admin/users', admin.users);
+router.get('/admin/users/getAllUsers', admin.getAllUsers);
 router.get('/admin/goods', admin.goods);
+router.get('/admin/goods/getAllGoods', admin.getAllGoods);
 router.post('/admin/add', admin.add);
 router.post('/admin/search', admin.search);
 router.post('/admin/change', admin.change);

@@ -12,11 +12,11 @@ con.query('use ' + DBName + ';');
 exports.add = function (req, res, next) {
 	//接收：type + 各种相关信息，判断session是否正确
 
-	var userType = 'store';
-	var userId = 'test7';
-	var userPassword = 'test2';
-	var userPhone = '123456';
-	var userInfo = 'test2';
+	var userType = req.body.stype;
+	var userId = req.body.newId;
+	var userPassword = req.body.newPwd;
+	var userPhone = req.body.newPhone;
+	var userInfo = req.body.newInfo;
 	var table;
 	var field = [];
 	var user = Object();
@@ -69,16 +69,16 @@ exports.add = function (req, res, next) {
 /* 查询一个用户或者商户或者商品信息. */
 exports.search = function (req, res, next) {
 	//接收：type + ID，判断session是否正确
-	var type = 'user';
+	var type = req.body.stype;
 	var sql;
 	if (type == 'user') {
-		var id = '1';
+		var id = req.body.sid;
 		sql = 'select * from Customer where customer_id = "' + id + '";';
 	} else if (type == 'store') {
-		var id = '1';
+		var id = req.body.sid;
 		sql = 'select * from Merchant where merchant_id = "' + id + '";';
 	} else if (type == 'good') {
-		var id = '1';
+		var id = req.body.sid;
 		sql = 'select * from Product where product_id = "' + id + '";';
 	} else {
 
@@ -92,7 +92,7 @@ exports.search = function (req, res, next) {
 /* 修改一个用户或者商品的信息. */
 exports.change = function (req, res, next) {
 	//接收： type + 所有相关信息，判断session是否正确
-	var type = 'good';
+	var type = req.body.stype;
 	var sql;
 	if (type == 'user') {
 		var id = 'test1';
@@ -104,10 +104,10 @@ exports.change = function (req, res, next) {
 			+ ' , customer_address = "' + address + '"'
 			+ ' where customer_id = "' + id + '";';
 	} else if (type == 'store') {
-		var id = 'test1';
-		var password = '1';
-		var phone = '1';
-		var description = '1';
+		var id = req.body.sid;
+		var password = req.body.password;
+		var phone = req.body.phone;
+		var description = req.body.descriptions;
 		var sql = 'update Merchant set merchant_password = "' + password + '"'
 			+ ' , merchant_phone =  "' + phone + '"'
 			+ ' , merchant_description = "' + description + '"'
@@ -145,16 +145,16 @@ exports.change = function (req, res, next) {
 /* 删除一个用户或者商品. */
 exports.remove = function (req, res, next) {
 	//接收： type + ID，判断session是否正确
-	var type = 'user';
+	var type = req.body.stype;
 	var sql;
 	if (type == 'user') {
-		var id = '1';
+		var id = req.body.sid;
 		sql = 'delete from Customer where customer_id = "' + id + '";';
 	} else if (type == 'store') {
-		var id = '1';
+		var id = req.body.sid;
 		sql = 'delete from Merchant where merchant_id = "' + id + '";';
 	} else if (type == 'good') {
-		var id = '1';
+		var id = req.body.sid;
 		sql = 'delete from Product where product_id = "' + id + '";';
 	} else {
 
@@ -188,7 +188,6 @@ exports.stores = function (req, res, next) {
 exports.getAllStores = function (req, res, next) {
 	var data;
 	con.query('select * from Merchant;', function(err, rows) {
-		console.info(rows);
 		res.send(rows);
 	});
 }
@@ -199,14 +198,22 @@ exports.users = function (req, res, next) {
 	con.query('select * from Customer;', function(err, rows) {
 		res.send(rows);
 	});
-	res.render('users', { users: users});
+	res.render('users');
+}
+/* 获取所有用户信息. */
+exports.getAllUsers = function (req, res, next) {
+	con.query('select * from Customer;', function(err, rows) {
+		res.send(rows);
+	});
 }
 
 /* 商品信息展示页面 */
 exports.goods = function (req, res, next) {
-	//获取所有商品信息，判断session是否正确
+	res.render('goods');
+}
+/* 获取所有商品信息. */
+exports.getAllGoods = function (req, res, next) {
 	con.query('select * from Product;', function(err, rows) {
 		res.send(rows);
 	});
-	res.render('goods', { goods: goods});
 }

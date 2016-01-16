@@ -14,7 +14,7 @@ function getAllStores() {
 	            for (i=0; i<length; i++) {
 	            	var tableChild = '<tr><td><input type="text" value="' + data[i].merchant_id + '" placeholder=" ' + data[i].merchant_id + '" disabled/></td><td><input type="text" placeholder="' + data[i].merchant_password + '" disabled/></td><td><input type="text" placeholder="' + data[i].merchant_phone + '" disabled/></td><td><input type="text" placeholder="' + data[i].merchant_description + 
 	            	 '" disabled/></td><td>' + '<a class="btn btn-warning" href="javascript:void(0)" onclick="changeInfo(event)" style="display:inline-block;">修改' + '<a class="btn btn-info"  href="javascript:void(0)" onclick="submitInfo(event)" style="display:none;">提交</td></tr>';
-	            	$('table').append(tableChild);
+	            	$('table.stores').append(tableChild);
 	            }
 	        }
     });
@@ -43,7 +43,9 @@ function submitInfo(event) {
 	var target = event.target;
 	$(target).css('display', 'none');
 	$(target).siblings('a').css('display', 'inline-block');
-	
+	var parent = $(target).parent().parent();
+	var brothers = $(parent).children();
+
 	var merchant_id = $(brothers[0]).children('input').val();
 	var merchant_password = $(brothers[1]).children('input').val();
 	var merchant_phone = $(brothers[2]).children('input').val();
@@ -56,17 +58,89 @@ function submitInfo(event) {
 		alert('请输入新的商家描述！');
 	} else {
 		$.post("/admin/change",
-	        { type: 'store', merchant_id: merchant_id, merchant_password: merchant_password, merchant_phone: merchant_phone, merchant_description: merchant_description},
+	        { stype: 'store', sid: merchant_id, password: merchant_password, phone: merchant_phone, descriptions: merchant_description},
 	        function(data){
-	            console.info(data);
-	            //使输入框不可用
-				var parent = $(target).parent().parent();
-				var brothers = $(parent).children();
-				for(i=1; i<brothers.length; i++) {
-					$(brothers[i]).children('input').attr('disabled', '');
-				}
+	            if (data.updateSuccess == 1) {
+	            	alert('修改成功！');
+	            	location.reload();
+	            	for(i=1; i<brothers.length; i++) {
+						$(brothers[i]).children('input').attr('disabled', '');
+					}
+	            }
+				
 	        }
     	);
 	}
 
+}
+
+//新增商家
+function addStore() {
+	var newId = $('.newId').val();
+	var newPwd = $('.newPwd').val();
+	var newPhone = $('.newPhone').val();
+	var newInfo = $('.newIntro').val();
+	if (!newId) {
+		alert('ID不能为空！');
+	} else if (!newPwd) {
+		alert('密码不能为空！');
+	} else if (!newPhone) {
+		alert('客服号码不能为空！');
+	} else if (!newIntro) {
+		alert('简介不能为空！');
+	} else {
+		$.post("/admin/add",
+	        { stype: 'store', sid: newId, password: newPwd, phone: newPhone, descriptions: newInfo},
+	        function(data){
+	            if (data.updateSuccess == 1) {
+	            	alert('新增成功！');
+	            	location.reload();
+	            } else {
+	            	alert('出现内部错误，请联系开发人员。');
+	            }	
+	        }
+    	);
+	}
+}
+
+//删除商家
+function deleteStore() {
+	var deleteId = $('.deleteId').val();
+	if (!deleteId) {
+		alert('ID不能为空！');
+	} else {
+		$.post("/admin/remove",
+	        { stype: 'store', sid: deleteId},
+	        function(data){
+	            if (data.length == 0) {
+	            	alert('出现内部错误，请联系开发人员。');
+	            } else {
+	            	alert('删除成功！');
+	            	location.reload();
+	            }
+	        }
+    	);
+	}
+}
+
+//搜索商家
+function searchStore() {
+	var searchId = $('.searchId').val();
+	if (!searchId) {
+		alert('ID不能为空！');
+	} else {
+		$.post("/admin/search",
+	        { stype: 'store', sid: searchId},
+	        function(data){
+	            if (data.length == 0) {
+	            	alert('出现内部错误，请联系开发人员。');
+	            } else {
+	            	$('.child').remove();
+	            	var tableChild = '<tr class="child"><td><input type="text" value="' + data[0].merchant_id + '" placeholder=" ' + data[0].merchant_id + '" disabled/></td><td><input type="text" placeholder="' + data[0].merchant_password + '" disabled/></td><td><input type="text" placeholder="' + data[0].merchant_phone + '" disabled/></td><td><input type="text" placeholder="' + data[0].merchant_description + 
+	            	 '" disabled/></td><td>' + '</tr>';
+	            	$('table.search').append(tableChild);
+	            }
+	        }
+    	);
+	}
 }
