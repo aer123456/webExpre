@@ -96,11 +96,30 @@ exports.search = function (req, res, next) {
 /* 修改一个用户或者商品的信息. */
 exports.change = function (req, res, next) {
 	//接收： type + 所有相关信息，判断session是否正确
+	var type = 'user';
+	var table;
+	var field = [];
+	if (type == 'user') {
+		table = 'Customer';
+		field[0] = 'customer_id';
+	} else if (type == 'store') {
+		table = 'Merchant';
+		field[0] = 'merchant_id';
+	} else if (type == 'good') {
+		table = 'Product';
+		field[0] = 'product_id';
+	} else {
+
+	}
+	con.query('update ');
 }
 
 /* 删除一个用户或者商品. */
 exports.remove = function (req, res, next) {
 	//接收： type + ID，判断session是否正确
+	var table;
+	var field = [];
+	con.query('delete');
 }
 
 /* 主页：商户展示页面. */
@@ -112,8 +131,8 @@ exports.stores = function (req, res, next) {
 	// if (userType == 'admin') {
 
 	// }
-	con.query('select * from Merchant', function(err, rows) {
-		
+	con.query('select * from Merchant;', function(err, rows) {
+		res.send(rows);
 	});
 	res.render('admin/stores', { stores: 'stores'});
 }
@@ -121,11 +140,17 @@ exports.stores = function (req, res, next) {
 /* 用户信息展示页面. */
 exports.users = function (req, res, next) {
 	//获取所有用户信息，判断session是否正确
+	con.query('select * from Customer;', function(err, rows) {
+		res.send(rows);
+	});
 	res.render('users', { users: users});
 }
 
 /* 商品信息展示页面 */
 exports.goods = function (req, res, next) {
 	//获取所有商品信息，判断session是否正确
+	con.query('select * from Product;', function(err, rows) {
+		res.send(rows);
+	});
 	res.render('goods', { goods: goods});
 }
