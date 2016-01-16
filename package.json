@@ -18,6 +18,7 @@
     "better-js-class": "*",
     "cps": "*",
     "node-mysql": "*",
+    "mysql": "*",
     "underscore": "*",
     "serve-favicon": "~2.3.0"
   }
