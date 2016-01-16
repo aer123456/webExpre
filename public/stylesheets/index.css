@@ -1,0 +1,20 @@
+body {
+    background: #3C3C3C;
+}
+h2 {
+    text-align: center;
+    color: #fff;
+}
+.login {
+    background: #fff;
+    width: 800px;
+    height: 400px;
+    padding-top: 30px;
+    margin: 0 auto;
+    text-align: center;
+}
+.login_usertype {
+    text-align: center;
+}
+    
+    

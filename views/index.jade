@@ -1,14 +1,23 @@
 extends layout
 
 block content
-    select
-        option(value="admin") 管理员
-        option(value="user") 用户
-        option(value="store") 商家
-    input.username(placeholder='请输入用户名')  
-    input.passwd(placeholder='请输入密码')
-    a(href='#' onclick='submitLogin()') 登录
-    link(rel="stylesheet", href="/stylesheet/index.styl")
+    h2 欢迎登录电商管理系统，请登录：
+    div.login
+        .login_usertype
+            span 选择登录身份：
+            select
+                option(value="admin") 管理员
+                option(value="user") 用户
+                option(value="store") 商家
+        .login_username
+            span 用户名：
+            input.username(placeholder='请输入用户名') 
+        .login_passwd
+            span 密码：  
+            input.passwd(placeholder='请输入密码')
+        a(href='#' onclick='submitLogin()') 登录
+    img(src="/images/loginicons.png")
+    link(rel="stylesheet", href="/stylesheets/index.css")
     script.
         function submitLogin() {
             var userType = $('select').find("option:selected").val();
@@ -21,4 +30,3 @@ block content
                 alert("Data Loaded: " + data);
             });
         }
-
