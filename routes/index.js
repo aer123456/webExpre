@@ -11,7 +11,7 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'helloworld'
+  password: ''
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -80,6 +80,7 @@ router.get('/logout', function (req, res, next) {
 
 /* 管理员相关路由及控制模块. */
 router.get('/admin', admin.stores);
+router.post('/admin/getAllStores', admin.getAllStores);
 router.get('/admin/users', admin.users);
 router.get('/admin/goods', admin.goods);
 router.post('/admin/add', admin.add);

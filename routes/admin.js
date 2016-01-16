@@ -2,7 +2,7 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'helloworld'
+  password: ''
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -180,11 +180,17 @@ exports.stores = function (req, res, next) {
 	// var password = req.session.password;
 	// if (userType == 'admin') {
 
-	// }
+	// }	
+	res.render('admin/stores');
+}
+
+/* API: 获取所有商户信息. */
+exports.getAllStores = function (req, res, next) {
+	var data;
 	con.query('select * from Merchant;', function(err, rows) {
+		console.info(rows);
 		res.send(rows);
 	});
-	res.render('admin/stores', { stores: 'stores'});
 }
 
 /* 用户信息展示页面. */

@@ -1,0 +1,12 @@
+.container table {
+	width: 100%;
+}
+.container table tr {
+	line-height: 30px;
+	text-align: center;
+}
+.container table tr td input {
+	display: inline-block;
+	width: 80%;
+	text-align: center;
+}
