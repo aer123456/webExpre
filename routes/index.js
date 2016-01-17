@@ -36,8 +36,8 @@ router.get('/store/addGoods', store.addGoods);
 router.get('/store/removeGoods', store.removeGoods);
 
 /* 用户相关路由及控制模块. */
-router.get('/users', users.allOrders);
-router.get('/users/searchOrder', users.searchOrder);
+router.get('/users', users.homepage);
+router.post('/users/userInfo', users.userInfo);
 router.get('/users/orderDetail', users.orderDetail);
 router.get('/users/orderEvaluation', users.orderEvaluation);
 

@@ -1,12 +1,10 @@
-/* 主页：显示我的所有订单. */
-exports.allOrders = function (req, res, next) {
-	//如果麻烦就不要了，需要做分页功能
+/* 主页. */
+exports.homepage = function (req, res, next) {
 	res.render('user/users');
 }
-
-/* 查询订单. */
-exports.searchOrder = function (req, res, next) {
-	//接收：订单号
+/* 显示所有订单. */
+exports.userInfo = function (req, res, next) {
+	//post请求，获取用户信息和用户的订单
 }
 
 /* 查看订单详情. */
