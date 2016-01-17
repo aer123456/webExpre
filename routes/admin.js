@@ -2,7 +2,7 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: ''
+  password: 'helloworld'
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -13,10 +13,10 @@ exports.add = function (req, res, next) {
 	//接收：type + 各种相关信息，判断session是否正确
 
 	var userType = req.body.stype;
-	var userId = req.body.newId;
-	var userPassword = req.body.newPwd;
-	var userPhone = req.body.newPhone;
-	var userInfo = req.body.newInfo;
+	var userId = req.body.sid;
+	var userPassword = req.body.password;
+	var userPhone = req.body.phone;
+	var userInfo = req.body.descriptions;
 	var table;
 	var field = [];
 	var user = Object();
@@ -52,7 +52,7 @@ exports.add = function (req, res, next) {
 			return_info.usernameExist = 1;
 			res.send(return_info);
 		} else {
-			con.query('insert into ' + table + ' set ?', user, function(err, res) {
+			con.query('insert into ' + table + ' set ?', user, function(err, resp) {
 				if (err) {
 					return_info.addSuccess = 0;
 					res.send(return_info);
