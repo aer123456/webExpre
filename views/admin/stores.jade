@@ -4,14 +4,6 @@ block content
 	link(rel="stylesheet", href="stylesheets/admin/stores.css")
 	.container
 
-		.showTable
-			table.stores.table-bordered.table-striped
-				tr
-					th 商家ID
-					th 商家密码
-					th 商家客服电话
-					th 商家简介
-					th 操作
 		table.addNew
 			tr
 				td
@@ -48,6 +40,15 @@ block content
 					input(type="text" class='hide' disabled)
 				td 
 					a(class='btn btn-success' href="javascript:void(0)" onclick='searchStore()') 搜索
+
+		.showTable
+			table.stores.table-bordered.table-striped
+				tr
+					th 商家ID
+					th 商家密码
+					th 商家客服电话
+					th 商家简介
+					th 操作
 
 	script(src='javascripts/admin/stores.js')
 		

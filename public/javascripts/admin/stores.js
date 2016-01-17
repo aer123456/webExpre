@@ -94,7 +94,7 @@ function addStore() {
 	            	alert('新增成功！');
 	            	location.reload();
 	            } else if (data.usernameExist == 1) {
-	            	alert('exist');
+	            	alert('用户已经存在，请更换ID！');
 	            } else {
 	            	alert('出现内部错误，请联系开发人员。');
 	            }	

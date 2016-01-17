@@ -2,7 +2,7 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'helloworld'
+  password: ''
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -130,11 +130,9 @@ exports.change = function (req, res, next) {
 		var return_info = Object();
 		return_info.updateSuccess = 0;
 		if (err) {
-			console.log('0');
 			return_info.updateSuccess = 0;
 			res.send(return_info);
 		} else {
-			console.log('1');
 			return_info.updateSuccess = 1;
 			res.send(return_info);
 		}
