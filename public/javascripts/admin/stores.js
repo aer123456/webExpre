@@ -84,15 +84,17 @@ function addStore() {
 		alert('密码不能为空！');
 	} else if (!newPhone) {
 		alert('客服号码不能为空！');
-	} else if (!newIntro) {
+	} else if (!newInfo) {
 		alert('简介不能为空！');
 	} else {
 		$.post("/admin/add",
 	        { stype: 'store', sid: newId, password: newPwd, phone: newPhone, descriptions: newInfo},
 	        function(data){
-	            if (data.updateSuccess == 1) {
+	            if (data.addSuccess == 1) {
 	            	alert('新增成功！');
 	            	location.reload();
+	            } else if (data.usernameExist == 1) {
+	            	alert('exist');
 	            } else {
 	            	alert('出现内部错误，请联系开发人员。');
 	            }	
