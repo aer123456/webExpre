@@ -17,8 +17,8 @@ block content
                 span 密码：  
                 input.passwd(placeholder='请输入密码')
             a(href='javascript: void(0);' class='btn btn-success' onclick='submitLogin()') 登录
-            a(href='javascript: void(0);' class='btn btn-success' onclick='testUpdate()') update
-            a(href='javascript: void(0);' class='btn btn-success' onclick='testDelete()') delete
+            a(href='javascript: void(0);' class='btn btn-success' onclick='testOrderDetail()') test
+
     link(rel="stylesheet", href="stylesheets/index.css")
     script.
         function submitLogin() {
@@ -70,6 +70,27 @@ block content
         function testDelete() {
             $.post("/admin/remove",
                 { },
+                function(data){
+                    console.info(data);
+            });
+        }
+        function testUserinfo() {
+            $.post("/users/userinfo",
+                { },
+                function(data){
+                    console.info(data);
+            });
+        }
+        function testAllorders() {
+            $.post("/users/allOrders",
+                { },
+                function(data){
+                    console.info(data);
+            });
+        }
+        function testOrderDetail() {
+            $.post("/store/removeGoods",
+                { productId: '4', price: 100, describe: 'xxxx'},
                 function(data){
                     console.info(data);
             });

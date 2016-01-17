@@ -53,8 +53,9 @@ CREATE TABLE Product
 -- order table
 CREATE TABLE Orders
 (
-	order_id INT NOT NULL,
+	order_id VARCHAR(20) NOT NULL,
 	customer_id VARCHAR(20) NOT NULL,	
+	order_time timestamp default current_timestamp,
 
 	PRIMARY KEY(order_id),
 	FOREIGN KEY(customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -63,7 +64,7 @@ CREATE TABLE Orders
 -- order-product TABLE
 CREATE TABLE Order_Product
 (
-	order_id INT NOT NULL,
+	order_id VARCHAR(20) NOT NULL,
 	product_id VARCHAR(20) NOT NULL,
 
 	PRIMARY KEY(order_id,product_id),
