@@ -2,12 +2,26 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: ''
+  password: 'helloworld'
 });
 con.connect();
 var DBName = 'WebDevelopment';
 con.query('use ' + DBName + ';');
 
+/* 主页. */
+exports.homepage = function (req, res, next) {
+	res.render('user/users');
+}
+
+/*  */
+exports.userInfo = function (req, res, next) {
+	//post请求，获取用户信息
+	var user_id;
+	var sql = 'select * from Customer where customer_id = "' + user_id + '";';
+	con.query(sql, function(err, rows) {
+		res.send(rows);
+	});
+}
 
 /* 主页：显示我的所有订单. */
 exports.allOrders = function (req, res, next) {
@@ -19,15 +33,17 @@ exports.allOrders = function (req, res, next) {
 	con.query(sql, function(err, rows) {
 		res.send(rows);
 	});
-	res.render('user/users');
 }
-
 
 /* 查看订单详情. */
 exports.orderDetail = function (req, res, next) {
 	//接收：唯一订单号
-	var id;
-	var sql = 'select ';
+	var order_id = '1';
+	var sql = 'select * from Order_Product, Product '
+		+ 'where Order_Product.product_id = Product.product_id and Order_Product.order_id = "' + order_id + '";';
+	con.query(sql, function(err, rows) {
+		res.send(rows);
+	});
 }
 
 /* 评价订单和上传订单图片. */

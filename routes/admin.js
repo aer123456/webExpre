@@ -2,7 +2,7 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: ''
+  password: 'helloworld'
 });
 con.connect();
 var DBName = 'WebDevelopment';
