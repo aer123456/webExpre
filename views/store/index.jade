@@ -1,0 +1,53 @@
+extends ../layout
+
+block content
+	link(rel="stylesheet", href="stylesheets/admin/stores.css")
+	.container
+
+		.showTable
+			table.stores.table-bordered.table-striped
+				tr
+					th 商品ID
+					th 商家ID
+					th 商品价格
+					th 商品描述
+					th 操作
+		table.addNew
+			tr
+				td
+					input(type="text" class='newId' placeholder='输入新增商品的ID')
+				td
+					input(type="text" class='newPwd' disabled)
+				td
+					input(type="text" class='newPrice' placeholder='输入新增商品的价格')
+				td
+					input(type="text" class='newDesc' placeholder='输入新增商品的简介')
+				td
+					a(class='btn btn-success' href="javascript:void(0)" onclick='addStore()') 新增
+		table.delete
+			tr
+				td
+					input(type="text" class='deleteId' placeholder='输入商品的ID删除该商品')
+				td 
+					input(type="text" class='hide' disabled) 					
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					a(class='btn btn-success' href="javascript:void(0)" onclick='deleteStore()') 删除
+		table.search
+			tr
+				td
+					input(type="text" class='searchId' placeholder='输入商品的ID进行搜索')
+				td 
+					input(type="text" class='hide' disabled) 					
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					a(class='btn btn-success' href="javascript:void(0)" onclick='searchStore()') 搜索
+
+	script(src='javascripts/store/index.js')
+		
