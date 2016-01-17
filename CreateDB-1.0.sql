@@ -43,7 +43,7 @@ CREATE TABLE Product
 	product_id VARCHAR(20) NOT NULL CHECK(product_id != ''),
 	merchant_id VARCHAR(20) NOT NULL,
 	product_price FLOAT NOT NULL CHECK(product_price > 0),
-	description VARCHAR(100),
+	product_description VARCHAR(100),
 	image_path VARCHAR(50) NULL,
 
 	PRIMARY KEY(product_id),

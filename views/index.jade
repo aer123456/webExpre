@@ -28,12 +28,19 @@ block content
             $.post("/login",
                 { userType: userType,username: username, password: password },
                 function(data){
+                    console.info(data);
                     if (data.usernameExist == 0) {
                         alert('用户明不存在，请重新输入！');
                     } else if (data.passwordCorrect == 0) {
                         alert('密码不正确，请重新输入！');
-                    } else if ( data.passwordCorrect == 1) {
-                        window.location.href = '/admin';
+                    } else if (data.passwordCorrect == 1) {
+                        if(data.userType == 'admin'){
+                            window.location.href = '/admin';
+                        } else if (data.userType == 'user') {
+                            window.location.href = '/users';
+                        } else if (data.userType == 'store') {
+                            window.location.href = '/store';
+                        }
                     } else {
                         alert('未知的错误发生了，请及时联系相关人员处理。');
                     }

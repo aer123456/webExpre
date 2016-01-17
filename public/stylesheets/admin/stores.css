@@ -10,3 +10,15 @@
 	width: 80%;
 	text-align: center;
 }
+.addNew, .search {
+	margin-top: 30px;
+}
+.addNew tr th input {
+	display: inline-block;
+	width: 80%;
+	text-align: center;
+}
+.search .hide {
+	display: inline-block;
+	border: none;
+}
