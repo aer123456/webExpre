@@ -1,4 +1,54 @@
 extends ../layout
 
 block content
-	
+	link(rel="stylesheet", href="/stylesheets/admin/stores.css")
+	.container
+		h2 商品管理
+		table.addNew
+			tr
+				td
+					input(type="text" class='newId' placeholder='输入新增商品的ID')
+				td
+					input(type="text" class='newPwd' placeholder='输入新增商品所属的商家')
+				td
+					input(type="text" class='newPhone' placeholder='输入新增商品的价格')
+				td
+					input(type="text" class='newIntro' placeholder='输入新增商品的简介')
+				td
+					a(class='btn btn-success' href="javascript:void(0)" onclick='addStore()') 新增
+		table.delete
+			tr
+				td
+					input(type="text" class='deleteId' placeholder='输入商品的ID删除该商品')
+				td 
+					input(type="text" class='hide' disabled) 					
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					a(class='btn btn-success' href="javascript:void(0)" onclick='deleteStore()') 删除
+		table.search
+			tr
+				td
+					input(type="text" class='searchId' placeholder='输入商品的ID进行搜索')
+				td 
+					input(type="text" class='hide' disabled) 					
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					a(class='btn btn-success' href="javascript:void(0)" onclick='searchStore()') 搜索
+		h2 当前所有商品信息
+		.showTable
+			table.stores.table-bordered.table-striped
+				tr
+					th 商品ID
+					th 所属商家
+					th 商品价格
+					th 商品简介
+					th 操作
+
+	script(src='/javascripts/admin/goods.js')
+		

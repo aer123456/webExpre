@@ -10,7 +10,7 @@
 	width: 80%;
 	text-align: center;
 }
-.addNew, .search {
+.addNew{
 	margin-top: 30px;
 }
 .addNew tr th input {
@@ -21,4 +21,7 @@
 .search .hide {
 	display: inline-block;
 	border: none;
+}
+h2 {
+	text-align: center;
 }

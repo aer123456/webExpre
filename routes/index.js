@@ -28,20 +28,20 @@ router.post('/admin/change', admin.change);
 router.post('/admin/remove', admin.remove);
 
 /* 商家相关路由以及控制模块. */
-router.get('/store', store.homepage);
-router.post('/store/all', store.store);
-router.post('/store/changePhone', store.changePhone);
-router.post('/store/changeGoodsInfo', store.changeGoodsInfo);
-router.post('/store/searchGoods', store.searchGoods);
-router.post('/store/addGoods', store.addGoods);
-router.post('/store/removeGoods', store.removeGoods);
+// router.get('/store', store.homepage);
+// router.post('/store/all', store.store);
+// router.post('/store/changePhone', store.changePhone);
+// router.post('/store/changeGoodsInfo', store.changeGoodsInfo);
+// router.post('/store/searchGoods', store.searchGoods);
+// router.post('/store/addGoods', store.addGoods);
+// router.post('/store/removeGoods', store.removeGoods);
 
 /* 用户相关路由及控制模块. */
-router.get('/users', users.homepage);
-router.post('/users/userInfo', users.userInfo);
-router.post('/users/allOrders', users.allOrders);
-router.post('/users/addOrder', users.addOrder);
-router.post('/users/orderDetail', users.orderDetail);
-router.get('/users/orderEvaluation', users.orderEvaluation);
+// router.get('/users', users.homepage);
+// router.post('/users/userInfo', users.userInfo);
+// router.post('/users/allOrders', users.allOrders);
+// router.post('/users/addOrder', users.addOrder);
+// router.post('/users/orderDetail', users.orderDetail);
+// router.get('/users/orderEvaluation', users.orderEvaluation);
 
 module.exports = router;

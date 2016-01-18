@@ -1,4 +1,54 @@
 extends ../layout
 
 block content
-	
+	link(rel="stylesheet", href="/stylesheets/admin/stores.css")
+	.container
+		h2 用户管理
+		table.addNew
+			tr
+				td
+					input(type="text" class='newId' placeholder='输入新增用户的ID')
+				td
+					input(type="text" class='newPwd' placeholder='输入新增用户的密码')
+				td
+					input(type="text" class='newPhone' placeholder='输入新增用户的客服电话')
+				td
+					input(type="text" class='newIntro' placeholder='输入新增用户的简介')
+				td
+					a(class='btn btn-success' href="javascript:void(0)" onclick='addStore()') 新增
+		table.delete
+			tr
+				td
+					input(type="text" class='deleteId' placeholder='输入用户的ID删除该用户')
+				td 
+					input(type="text" class='hide' disabled) 					
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					a(class='btn btn-success' href="javascript:void(0)" onclick='deleteStore()') 删除
+		table.search
+			tr
+				td
+					input(type="text" class='searchId' placeholder='输入用户的ID进行搜索')
+				td 
+					input(type="text" class='hide' disabled) 					
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					input(type="text" class='hide' disabled)
+				td 
+					a(class='btn btn-success' href="javascript:void(0)" onclick='searchStore()') 搜索
+		h2 当前所有用户信息
+		.showTable
+			table.stores.table-bordered.table-striped
+				tr
+					th 用户ID
+					th 用户密码
+					th 用户电话
+					th 用户地址
+					th 操作
+
+	script(src='/javascripts/admin/users.js')
+		

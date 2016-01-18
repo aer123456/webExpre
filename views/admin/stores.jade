@@ -3,7 +3,7 @@ extends ../layout
 block content
 	link(rel="stylesheet", href="stylesheets/admin/stores.css")
 	.container
-
+		h2 商家管理
 		table.addNew
 			tr
 				td
@@ -40,7 +40,7 @@ block content
 					input(type="text" class='hide' disabled)
 				td 
 					a(class='btn btn-success' href="javascript:void(0)" onclick='searchStore()') 搜索
-
+		h2 当前所有商家信息
 		.showTable
 			table.stores.table-bordered.table-striped
 				tr
