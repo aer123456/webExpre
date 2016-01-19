@@ -3,6 +3,12 @@ extends ../layout
 block content
 	link(rel="stylesheet", href="stylesheets/admin/stores.css")
 	.container
+		div.topShow
+			h2 欢迎，您的身份是：
+				span 管理员
+				a(href="/admin/users" class='btn btn-success') 用户管理
+				a(href="/admin/goods" class='btn btn-success') 商品管理
+				a(href="/logout" class='btn btn-danger') 退出
 		h2 商家管理
 		table.addNew
 			tr

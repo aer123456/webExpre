@@ -1,4 +1,38 @@
 extends ../layout
 
 block content
-	p skajdhfas
+	link(rel="stylesheet", href="stylesheets/admin/stores.css")
+	.container
+		div.topShow
+			h2 欢迎，您的身份是：
+				span 用户
+				a(href="logout" class='btn btn-success') 退出
+		h2 用户本身信息
+		table.info
+			tr
+					th 用户ID
+					th 用户密码
+					th 用户电话
+					th 用户收货地址
+					th 操作
+
+		h2 我的所有订单
+		table.all.table-bordered
+			tr
+				th 编号
+				th 订单号
+				th 下单时间
+
+		h2 所有商家所拥有的商品信息
+		.showTable
+			table.stores.table-bordered.table-striped
+				tr
+					th 商品ID
+					th 商家ID
+					th 商品价格
+					th 商品描述
+					th 操作
+			a.btn.btn-primary(href='javascript:confirmOrder()' style='display:block;margin:20px auto;') 确认下单
+
+	script(src='javascripts/user/index.js')
+		

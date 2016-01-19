@@ -3,6 +3,12 @@ extends ../layout
 block content
 	link(rel="stylesheet", href="/stylesheets/admin/stores.css")
 	.container
+		div.topShow
+			h2 欢迎，您的身份是：
+				span 管理员
+				a(href="/admin" class='btn btn-success') 商户管理
+				a(href="/admin/goods" class='btn btn-success') 商品管理
+				a(href="/logout" class='btn btn-danger') 退出
 		h2 用户管理
 		table.addNew
 			tr
@@ -11,9 +17,9 @@ block content
 				td
 					input(type="text" class='newPwd' placeholder='输入新增用户的密码')
 				td
-					input(type="text" class='newPhone' placeholder='输入新增用户的客服电话')
+					input(type="text" class='newPhone' placeholder='输入新增用户的电话')
 				td
-					input(type="text" class='newIntro' placeholder='输入新增用户的简介')
+					input(type="text" class='newIntro' placeholder='输入新增用户的地址')
 				td
 					a(class='btn btn-success' href="javascript:void(0)" onclick='addStore()') 新增
 		table.delete

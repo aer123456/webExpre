@@ -2,7 +2,7 @@ var db = require('mysql');
 var con = db.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'helloworld'
+  password: ''
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -16,7 +16,7 @@ exports.homepage = function (req, res, next) {
 /*  */
 exports.userInfo = function (req, res, next) {
 	//post请求，获取用户信息
-	var user_id = 'test1';
+	var user_id = req.session.username;
 	var sql = 'select * from Customer where customer_id = "' + user_id + '";';
 	con.query(sql, function(err, rows) {
 		res.send(rows);
@@ -26,12 +26,31 @@ exports.userInfo = function (req, res, next) {
 /* 主页：显示我的所有订单. */
 exports.allOrders = function (req, res, next) {
 	//如果麻烦就不要了，需要做分页功能
-	var user_id = '1';
+	var user_id = req.session.username;
 
 	var sql = 'select * from Orders where customer_id = "' + user_id + '";';
 	con.query(sql, function(err, rows) {
-		console.log(rows);
 		res.send(rows);
+	});
+}
+
+/* 修改用户信息，包括电话和地址. */
+exports.changeInfo = function (req, res, next) {
+	var customer_id = req.session.username;
+	var customer_phone = req.body.phone;
+	var customer_address = req.body.address;
+	var sql = 'update Customer set customer_phone =  "' + customer_phone + '"'
+			+ ' , customer_address = "' + customer_address + '"'
+			+ ' where customer_id = "' + customer_id + '";';
+	con.query(sql, function(err, resp) {
+		var updateSuccess = '0';
+		if (err) {
+			updateSuccess = '0';
+			res.send(updateSuccess);
+		} else {
+			updateSuccess = '1';
+			res.send(updateSuccess);
+		}
 	});
 }
 
@@ -46,11 +65,10 @@ exports.orderDetail = function (req, res, next) {
 	});
 }
 
-/* */
+/* 新增订单. */
 exports.addOrder = function (req, res, next) {
-	// var user_id = req.session.userId;
-	var user_id = '1';
-	var order_id = req.body.orderId;
+	var user_id = req.session.username;
+	var order_id = new Date().getTime();
 	var products_id = req.body.products_id.split('&');
 
 	var sql = 'insert into Orders(order_id,customer_id) values("' + order_id + '","' + user_id + '");';

@@ -12,7 +12,7 @@ function getAllStores() {
             	$('.container').append(notice);
             } else { 
 	            for (i=0; i<length; i++) {
-	            	var tableChild = '<tr><td><input type="text" value="' + data[i].customer_id + '" placeholder=" ' + data[i].customer_password + '" disabled/></td><td><input type="text" placeholder="' + data[i].customer_phone + '" disabled/></td><td><input type="text" placeholder="' + data[i].customer_phone + '" disabled/></td><td><input type="text" placeholder="' + data[i].customer_address + 
+	            	var tableChild = '<tr><td><input type="text" value="' + data[i].customer_id + '" placeholder=" ' + data[i].customer_id + '" disabled/></td><td><input type="text" placeholder="' + data[i].customer_password + '" disabled/></td><td><input type="text" placeholder="' + data[i].customer_phone + '" disabled/></td><td><input type="text" placeholder="' + data[i].customer_address + 
 	            	 '" disabled/></td><td>' + '<a class="btn btn-warning" href="javascript:void(0)" onclick="changeInfo(event)" style="display:inline-block;">修改' + '<a class="btn btn-info"  href="javascript:void(0)" onclick="submitInfo(event)" style="display:none;">提交</td></tr>';
 	            	$('table.stores').append(tableChild);
 	            }

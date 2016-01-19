@@ -37,9 +37,9 @@ exports.login = function (req, res, next) {
 	}
 	con.query('select * from ' + table + ' where ' + id + '="' + username + '";', function(err, rows) {
 		if(err) throw err;
+		var return_info = Object();
 		if (rows.length !== 0) {
 			usernameExist = 1;
-			console.info(rows[0]);
 			if ((userType == 'admin' && rows[0].admin_password == password) || 
 				(userType == 'user' && rows[0].customer_password == password) ||
 				(userType == 'store' && rows[0].merchant_password == password)){
@@ -59,7 +59,7 @@ exports.login = function (req, res, next) {
 		var return_info = Object();
 		return_info.usernameExist = usernameExist;
 		return_info.passwordCorrect = passwordCorrect;
-		return_info.userType = req.session.userType;
+		return_info.userType = userType;
 		res.send(return_info);
 	});
 }

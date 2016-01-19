@@ -3,15 +3,21 @@ extends ../layout
 block content
 	link(rel="stylesheet", href="stylesheets/admin/stores.css")
 	.container
-
-		.showTable
-			table.stores.table-bordered.table-striped
-				tr
-					th 商品ID
+		div.topShow
+			h2 欢迎，您的身份是：
+				span 商家
+				a(href="logout" class='btn btn-success') 退出
+				
+		h2 本商家信息
+		table.info
+			tr
 					th 商家ID
-					th 商品价格
-					th 商品描述
+					th 商家密码
+					th 商品客服电话
+					th 商家描述
 					th 操作
+
+		h2 商品管理
 		table.addNew
 			tr
 				td
@@ -48,6 +54,15 @@ block content
 					input(type="text" class='hide' disabled)
 				td 
 					a(class='btn btn-success' href="javascript:void(0)" onclick='searchStore()') 搜索
+		h2 商家所拥有商品信息
+		.showTable
+			table.stores.table-bordered.table-striped
+				tr
+					th 商品ID
+					th 商家ID
+					th 商品价格
+					th 商品描述
+					th 操作
 
 	script(src='javascripts/store/index.js')
 		

@@ -2,7 +2,7 @@ var db = require('mysql');
 var con = db.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'helloworld'
+	password: ''
 });
 con.connect();
 var DBName = 'WebDevelopment';
@@ -13,21 +13,31 @@ exports.homepage = function (req, res, next) {
 	res.render('store/index');
 }
 
-/* 主页：获取所有商品信息. */
-exports.store = function (req, res, next) {
-	//判断session是否正确, 然后根据session中的帐号密码查数据
-	con.query('select * from Product',function(err, rows){
+/* 主页：获取本商家信息. */
+exports.getStore = function (req, res, next) {
+	var merchant_id = req.session.username;
+	var sql = 'select * from Merchant where merchant_id = "' + merchant_id + '";';
+	con.query(sql, function (err, rows) {
 		res.send(rows);
 	});
 }
 
-/* 商家修改客服号码. */
+/* 主页：获取所有商品信息. */
+exports.store = function (req, res, next) {
+	//判断session是否正确, 然后根据session中的帐号密码查数据
+	var id = req.session.username;
+	con.query('select * from Product where merchant_id = "' + id + '";',function(err, rows){
+		res.send(rows);
+	});
+}
+
+/* 商家修改客服号码和商家描述. */
 exports.changePhone = function(req, res, next) {
 	var phoneNumber = req.body.phone;
-	// var merChant_id = req.session.userId;
-	var merchant_id = '1';
+	var describe = req.body.describe;
+	var merchant_id = req.session.username;
 
- 	var sql = 'update Merchant set merchant_phone = " ' + phoneNumber + '" '
+ 	var sql = 'update Merchant set merchant_phone = " ' + phoneNumber + '", merchant_description = " ' + describe + '" '
  			+ ' where merchant_id = "' + merchant_id + '";';
 
  	var changeSuccess = '0';
@@ -44,7 +54,7 @@ exports.changePhone = function(req, res, next) {
 /* 修改商品信息. */
 exports.changeGoodsInfo = function (req, res, next) {
 	var productMsg = req.body.msg;
-	var product_ID = req.body.productId;
+	var product_ID = req.body.sid;
 	var product_Price = req.body.price;
 	var sql = 'update Product set product_description = " ' + productMsg + '",product_Price = "' + product_Price + '" '
  			+ ' where product_id = "' + product_ID + '";';
@@ -62,7 +72,7 @@ exports.changeGoodsInfo = function (req, res, next) {
 
 /* 查询商品信息. */
 exports.searchGoods = function (req, res, next) {
-	var product_ID = req.body.productId;
+	var product_ID = req.body.sid;
 	var sql = 'select * from Product where product_id = "' + product_ID + '";';
 	con.query(sql, function(err,rows){
 		res.send(rows);
@@ -71,13 +81,13 @@ exports.searchGoods = function (req, res, next) {
 
 /* 增加商品信息. */
 exports.addGoods = function (req, res, next) {
-	var merChant_ID = '1';
+	var merChant_ID = req.session.username;
 
 	var product = Object();
 	var changeSuccess = '0';
 	product.merchant_id = merChant_ID;
 	product.product_description = req.body.describe;
-	product.product_id = req.body.productId;
+	product.product_id = req.body.sid;
 	product.product_price = req.body.price;
 	product.image_path = 'xxx';
 	con.query('insert into Product' + ' set ? ', product, function(err,resp){
@@ -92,7 +102,7 @@ exports.addGoods = function (req, res, next) {
 
 /* 删除商品信息. */
 exports.removeGoods = function (req, res, next) {
-	var product_ID = req.body.productId;
+	var product_ID = req.body.sid;
 	var sql = 'delete from Product where product_id = "' + product_ID + '";';
 
 	var isDelete = '0';
